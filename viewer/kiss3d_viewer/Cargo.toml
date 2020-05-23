@@ -1,0 +1,22 @@
+[package]
+name = "kiss3d_viewer"
+version = "0.1.0"
+authors = ["Derek Wang <birdinforest@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+include = [
+    "src/*.rs",
+    "src/**/*.rs",
+    "src/**/*.vert",
+    "Cargo.toml",
+    "readme.md",
+]
+
+[dependencies]
+kiss3d = "0.24.1"
+nalgebra = "0.21"
+rand = "0.7"
+
+[dev-dependencies]
