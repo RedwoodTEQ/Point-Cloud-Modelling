@@ -3,6 +3,14 @@
 extern crate kiss3d;
 extern crate nalgebra as na;
 
+use std::env;
+use std::path::Path;
+use std::process;
+use std::fs::File;
+use std::io::{Error, ErrorKind as IOErrorKind};
+use std::io::{BufRead, BufReader};
+use std::io;
+
 use na::{Vector3, Matrix4, Point2, Point3, UnitQuaternion};
 
 use kiss3d::camera::Camera;
@@ -130,6 +138,9 @@ impl Renderer for PointCloudRenderer {
 // State
 struct AppState {
     point_cloud_renderer: PointCloudRenderer,
+    total: usize,
+    data: Vec<Vec<f32>>,
+    step: usize,
 }
 
 impl State for AppState {
@@ -144,13 +155,13 @@ impl State for AppState {
     ) { (None, None, Some(&mut self.point_cloud_renderer), None) }
 
     fn step(&mut self, window: &mut Window) {
-        if self.point_cloud_renderer.points_count() < 1_000_000 {
-            // Add some random points to the point cloud
-            for _ in 0..1_000 {
-                let random: Point3<f32> = rand::random();
-                self.point_cloud_renderer.push_point((random - Vector3::repeat(0.5)) * 0.5, rand::random());
-            }
-        }
+//        if self.point_cloud_renderer.points_count() < 1_000_000 {
+//            // Add some random points to the point cloud
+//            for _ in 0..1_000 {
+//                let random: Point3<f32> = rand::random();
+//                self.point_cloud_renderer.push_point((random - Vector3::repeat(0.5)) * 0.5, rand::random());
+//            }
+//        }
 
         let num_points_text = format!(
             "Number of points: {}",
@@ -168,10 +179,105 @@ impl State for AppState {
 }
 
 fn main() {
+    let args: Vec<String> = env::args().collect();
+    let mut input_path: &str;
+    let mut input_flag_index: Option<usize> = None;
+
+    for i in 0 .. args.len() {
+       if &args[i] == "-i" {
+           input_flag_index = Some(i);
+       }
+    }
+
+    match input_flag_index {
+        Some(input_flag_index) => {
+            input_path = &args[input_flag_index + 1];
+        },
+
+        None => {
+            println!("No input file. Please set input file by `-i [FILE]`. Exist!");
+            process::exit(1);
+        }
+    }
+
+    println!("args: {:?}", args);
+    println!("input_path: {}", input_path);
+
     let mut window = Window::new("Points cloud: Kiss3d");
+    let points = import_scan_data(input_path);
+    let count = points.len();
+
+    let mut render = PointCloudRenderer::new(4.0);
+
+    for index in 0..(count - 1) {
+        let v = &points[index];
+        let ori: Point3<f32> = Point3::new(v[0], v[1], v[2]);
+//        let p: Point3<f32> = Point3::new(v[0] - 327250.00, v[1] - 6249720.00, v[2]);
+        let p: Point3<f32> = Point3::new(v[0], v[1], v[2]);
+        render.push_point(p, rand::random());
+//        println!("{}", p);
+//        println!("{}", ori);
+//        println!("{}", index);
+    }
+
     let app = AppState {
-        point_cloud_renderer: PointCloudRenderer::new(4.0),
+        point_cloud_renderer: render,
+        total: count,
+        data: points,
+        step: 0,
     };
 
     window.render_loop(app)
+}
+
+//-------------------------------------------------------------------
+// Utility.
+// FIXME: Move to module.
+//-------------------------------------------------------------------
+
+fn open_file(file: &str) -> io::Result<File> {
+    println!("{}", file);
+    if Path::new(&file).exists() {
+        let f = File::open(file).expect("[iris Error] File not found.");
+        Ok(f)
+    } else {
+        Result::Err(Error::new(IOErrorKind::NotFound, "[iris Error] File not exist."))
+    }
+}
+
+fn import_scan_data(file: &str) -> Vec<Vec<f32>> {
+    let mut f = BufReader::new(open_file(file).unwrap());
+    let mut s = String::new();
+
+    let mut num_line = String::new();
+    f.read_line(&mut num_line).unwrap();
+    let n: usize = num_line.trim().parse().unwrap();
+
+//    let array: Vec<Vec<f64>> = f.lines()
+//        .map(|l| l.unwrap().split(char::is_whitespace)
+//            .map(|number| number.parse().unwrap())
+//            .collect())
+//        .collect();
+
+    let mut array = vec![vec![0f32; 3]; n];
+    for (i, line) in f.lines().enumerate() {
+        for (j, number) in line.unwrap().split(char::is_whitespace).enumerate() {
+            if j == 0 {
+                let num: f64 = number.trim().parse::<f64>().unwrap() - 327249.0;
+                println!("{}", num);
+                array[i][j] = num as f32;
+                println!("{}", array[i][j]);
+            } else if j == 1 {
+                let num: f64 = number.trim().parse::<f64>().unwrap() - 6249726.0;
+                array[i][j] = num as f32;
+            } else {
+                let num: f64 = number.trim().parse::<f64>().unwrap() - 26.0;
+                array[i][j] = num as f32;
+            }
+        }
+    }
+
+//    println!("{:?}", array);
+
+    array
 }
