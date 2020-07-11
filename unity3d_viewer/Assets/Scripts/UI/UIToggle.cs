@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Unity3DViewer.UI
 {
-    public class UISlider : UIComponent<Slider>
+    public class UIToggle : UIComponent<Toggle>
     {
     }
 }

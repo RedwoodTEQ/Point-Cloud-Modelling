@@ -1,73 +1,110 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using Unity3DViewer.UI;
 
-public class ModelRootManager : MonoBehaviour
+namespace Unity3DViewer
 {
-    public Transform rootTF;
-    [SerializeField]
-    private List<Model> models = new List<Model>();
-
-    private UIManager uiManager;
-
-    // Start is called before the first frame update
-    void Start()
+    public class ModelRootManager : MonoBehaviour
     {
-        if(!rootTF)
+        public Transform rootTF;
+        [SerializeField]
+        private List<Model> models = new List<Model>();
+
+        private UIManager uiManager;
+
+        // Start is called before the first frame update
+        void Start()
         {
-            rootTF = this.transform.Find("Root");
+            if (!rootTF)
+            {
+                rootTF = this.transform.Find("Root");
+            }
+
+            uiManager = FindObjectOfType<UIManager>();
+            if (uiManager)
+            {
+                uiManager.onPointSizeSliderChange += ChangePointSize;
+                uiManager.onLoadModelBtnClick += LoadModelFromDisk;
+            }
+
+            UpdateModels();
         }
 
-        if(rootTF)
+        private void LoadModelFromDisk() 
         {
-            foreach(Transform child in this.rootTF)
+            UnityAction<string> onSuccess = delegate(string path)
             {
-                var model = new Model(child.gameObject);
-                models.Add(model);
+                var modelObj = ModelLoader.LoadFromDisk(path);
+                if(modelObj)
+                {
+                    var arr = path.Split('/');
+                    var parent = new GameObject(arr[arr.Length - 1]);
+                    modelObj.transform.parent = parent.transform;
+                    parent.transform.parent = rootTF;
+
+                    UpdateModels();
+                }
+            };
+
+            StartCoroutine(FileLoader.LoadCoroutine(onSuccess));
+        }
+
+        private void ChangePointSize(float size)
+        {
+            if(models.Count > 0)
+            {
+                models[0].ChangePointSize(size);
             }
         }
 
-        uiManager = FindObjectOfType<UIManager>();
-        if(uiManager)
+        private void UpdateModels()
         {
-            uiManager.onPointSizeSliderChange += models[0].ChangePointSize;
+            models.Clear();
+            if (rootTF)
+            {
+                foreach (Transform child in this.rootTF)
+                {
+                    var model = new Model(child.gameObject);
+                    models.Add(model);
+                }
+            }
+
+            uiManager.UpdateModelList(models);
         }
 
-        // if(this.models.Count > 0)
-        // {
-        //     foreach (var m in this.models)
-        //     {
-        //         m.ChangePointSize(0.005f);
-        //     }
-        // }
-    }
-
-    private void OnEnable() {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-}
-
-[System.Serializable]
-public class Model {
-    GameObject gameObject;
-    MeshRenderer meshRender;
-
-    public Model(GameObject obj) 
-    {
-        gameObject = obj;
-        meshRender = gameObject.GetComponent<MeshRenderer>();
-    }
-
-    public void ChangePointSize(float size) 
-    {
-        if(this.meshRender && this.meshRender.material)
+        private void OnEnable()
         {
-            this.meshRender.material.SetFloat("_PointSize", size);
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
+    }
+
+    [System.Serializable]
+    public class Model
+    {
+        public GameObject gameObject {get; private set;}
+        public MeshRenderer meshRender {get; private set;}
+        public string name {get; private set;}
+
+        public Model(GameObject obj)
+        {
+            gameObject = obj;
+            meshRender = gameObject.GetComponent<MeshRenderer>();
+            name = gameObject.name;
+        }
+
+        public void ChangePointSize(float size)
+        {
+            if (this.meshRender && this.meshRender.material)
+            {
+                this.meshRender.material.SetFloat("_PointSize", size);
+            }
         }
     }
 }
