@@ -1,6 +1,0 @@
-<linker>
-  <assembly fullname="PclSharp">
-    <type fullname="PclSharp" preserve="all" />
-    <type fullname="PclSharp.Extern" preserve="all" />
-  </assembly>
-</linker>
