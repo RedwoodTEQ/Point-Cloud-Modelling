@@ -1,0 +1,16 @@
+[
+  {
+    "bounds": [
+      -112.75826263427734,
+      -104.98624420166016,
+      -243.2704620361328,
+      102.4422378540039,
+      90.72147369384766,
+      -121.57968139648438
+    ],
+    "inserted": true,
+    "metadataPath": "sobeca_1_group1_densified_point_cloud.json",
+    "path": "/entwine/sobeca_1_group1_densified_point_cloud.las",
+    "points": 1388458
+  }
+]

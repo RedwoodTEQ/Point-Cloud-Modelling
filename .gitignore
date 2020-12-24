@@ -1,2 +1,3 @@
-/viewer/kiss3d_viewer/target/
-Unity3DViewer.code-workspace
+/backup
+app/model-viewer-web/dist
+app/model-viewer-web/node_modules
