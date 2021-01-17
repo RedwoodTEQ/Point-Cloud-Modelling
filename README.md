@@ -1,7 +1,13 @@
 # Point-Cloud-Modelling
 
 ## Viewer
+
 [Model viewer (in working)](./app/model-viewer-web/)
 
+A model viewer on basis of project Potree. So far it only provide point cloud model.
+
+We also maintain a fork repository of Potree for possible PR: https://github.com/RedwoodTEQ/potree
+
 ## Sample Models
-[Sample Models](https://github.com/RedwoodTEQ/sample-model)
+
+Test models are stored in the repository [Sample Models](https://github.com/RedwoodTEQ/sample-model)
