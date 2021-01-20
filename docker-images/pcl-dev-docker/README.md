@@ -21,7 +21,6 @@ This image is based on Ubuntu 20.04 and has the following packages installed:
 - Boost
 - gdb
 - openssh
-- Sublime Text
 - zsh
 
 Default user is `pcl` and password is `pcl` too.  
