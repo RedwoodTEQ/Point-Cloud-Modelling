@@ -24,12 +24,15 @@ then
    helpFunction
 fi
 
+IMAGE_NAME_COMPILED=birdinforest/pcl-dev-docker-comp
+IMAGE_NAME_MIN=birdinforest/pcl-dev-docker-min
+
 if [ "$parameterI" == "comp" ]; then
    echo "Build compiled image.";
-   docker build ./docker/compiled-image -f docker/compiled-image/Dockerfile -t birdinforest/pcl-dev-docker
+   docker build ./docker/compiled-image -f docker/compiled-image/Dockerfile -t ${IMAGE_NAME_COMPILED}
 elif [ "$parameterI" == "min" ]; then
    echo "Build minimum image.";
-   docker build ./docker -f docker/minimum-image/Dockerfile -t birdinforest/pcl-dev-docker-min
+   docker build ./docker -f docker/minimum-image/Dockerfile -t ${IMAGE_NAME_MIN}
  else
    helpFunction
 fi

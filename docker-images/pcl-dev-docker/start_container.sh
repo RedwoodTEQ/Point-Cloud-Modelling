@@ -44,10 +44,13 @@ then
    helpFunction
 fi
 
+CONTAINER_NAME_COMPILED=pcl-docker-comp
+CONTAINER_NAME_MIN=pcl-docker-min
+
 if [ "$parameterI" == "min" ]; then
-    CONTAINER_NAME=pcl-docker-min
+    CONTAINER_NAME=${CONTAINER_NAME_MIN}
 elif [ "$parameterI" == "comp" ]; then
-    CONTAINER_NAME=pcl-docker-comp
+    CONTAINER_NAME=${CONTAINER_NAME_COMPILED}
 else
     helpFunction
 fi

@@ -54,17 +54,23 @@ fi
 
 CONTAINER_USER=pcl
 
+IMAGE_NAME_MIN=redwoodteq/pcl-docker-dev-minimum:latest
+IMAGE_NAME_COMPILED=redwoodteq/pcl-docker-dev-comp:latest
+
+CONTAINER_NAME_COMPILED=pcl-docker-comp
+CONTAINER_NAME_MIN=pcl-docker-min
+
 if [ "$parameterI" == "min" ]; then
-    IMAGE=birdinforest/pcl-dev-docker-min:latest
-    CONTAINER_NAME=pcl-docker-min
+    IMAGE=${IMAGE_NAME_MIN}
+    CONTAINER_NAME=${CONTAINER_NAME_MIN}
 elif [ "$parameterI" == "comp" ]; then
-    IMAGE=birdinforest/pcl-dev-docker:latest
-    CONTAINER_NAME=pcl-docker-comp
+    IMAGE=${IMAGE_NAME_COMPILED}
+    CONTAINER_NAME=${CONTAINER_NAME_COMPILED}
 else
     helpFunction
 fi
 
-echo "Setup container by image ${IMAGE}"
+echo "Setup container by image ${IMAGE}. Container name is ${CONTAINER_NAME}"
 
 docker run -it \
       --name=${CONTAINER_NAME} \
