@@ -2,3 +2,7 @@
 app/model-viewer-web/dist
 app/model-viewer-web/node_modules
 /docker-images/pcl-dev-docker/example_projects/*/build/
+
+# Cmake generated files
+**/[cmake]*/
+**/.clion.source.upload.marker

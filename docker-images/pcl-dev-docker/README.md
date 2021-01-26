@@ -50,10 +50,6 @@ It starts an ssh server and exposes it in port 2222 of the host.
 
 The idea is that the docker image will contain all the required software and libraries to develop on PCL and then we will connect from an IDE (CLion in my case) running in the host that will do "remote" compiling. 
 
-## Clion configuration
-Follow the steps [here](https://austinmorlan.com/posts/docker_clion_development/).  
-Note: CMake will be installed on `/usr/local/bin/cmake` instead of on the default location
-
 ## Docker image
 Clone repository and go to folder `pcl-dev-docker`
 
@@ -157,8 +153,46 @@ Edit following lines
     --volume=`pwd`/example_project:/home/$CONTAINER_USER/docker_dir/example_project \
 ```
 
+## SSH
+To start SSh service, execute following command in shell of container:
+```shell
+sudo service ssh start
+```
+Connect from client:
+```shell
+ssh pcl@localhost -p 2222
+```
+
+## Remote development
+
+### VS Code
+https://code.visualstudio.com/docs/remote/containers
+
+### CLion configuration
+Follow the steps [here](https://austinmorlan.com/posts/docker_clion_development/).  
+Note: CMake will be installed on `/usr/local/bin/cmake` instead of on the default location
+
+According to my practice experience, the CLion will do directories sync via ssh during their in-build remote development work flow,
+so that when we setup the SFTP in deployment of CLion, don't map the local development directory to the docker volume. It might cause
+files lost during sync conflict.
+
+For example, we have setup the volume for local directory
+`~/Point-Cloud-Modelling/docker-images/pcl-dev-docker/example_projects/` to be the container directory
+`/home/pcl/example_projects/` when we establish the container:
+```shell
+   --volume=`pwd`/example_projects:/home/$CONTAINER_USER/docker_dir/example_projects
+```
+In deployment setting of CLion we'd better map `~/Point-Cloud-Modelling/docker-images/pcl-dev-docker/example_projects/`
+to `/home/pcl/pcl_example_projects/`.
+
+Please explore other better solutions for directories mapping during remote development.
+
+## PCL example projects
+[example projects](./example_projects)
+
 # To-do
 
 + Update `setup_container.sh` and `start_container.sh` to launch GUI applications from the container using `xhost`.
 
 + Add an example pcl that don't need visualization.
+
