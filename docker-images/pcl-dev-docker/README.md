@@ -172,18 +172,33 @@ https://code.visualstudio.com/docs/remote/containers
 Follow the steps [here](https://austinmorlan.com/posts/docker_clion_development/).  
 Note: CMake will be installed on `/usr/local/bin/cmake` instead of on the default location
 
-According to my practice experience, the CLion will do directories sync via ssh during their in-build remote development work flow,
-so that when we setup the SFTP in deployment of CLion, don't map the local development directory to the docker volume. It might cause
-files lost during sync conflict.
+#### Docker volume vs deployment directory mapping on Clion
 
-For example, we have setup the volume for local directory
-`~/Point-Cloud-Modelling/docker-images/pcl-dev-docker/example_projects/` to be the container directory
-`/home/pcl/example_projects/` when we establish the container:
-```shell
-   --volume=`pwd`/example_projects:/home/$CONTAINER_USER/docker_dir/example_projects
-```
+According to my practice experience, the CLion will do directories sync via ssh during its in-build remote development work flow,
+It will causes sync conflict if we setup the SFTP directory mapping to the same path of container volume, and that cause file content missing.
+
+For example, we have setup the container volume `/home/pcl/example_projects/` mapping to local directory
+`~/Point-Cloud-Modelling/docker-images/pcl-dev-docker/example_projects/`:
+`/home/pcl/example_projects/`.
+
 In deployment setting of CLion we'd better map `~/Point-Cloud-Modelling/docker-images/pcl-dev-docker/example_projects/`
-to `/home/pcl/pcl_example_projects/`.
+to another path, say `/home/pcl/pcl_example_projects/`.
+
+Alternatively, we don't set volume to map local directory when setting up container:
+```shell
+docker run -it \
+      --name=${CONTAINER_NAME} \
+	  --cap-add sys_ptrace \
+	  -v ${HOME}/.Xauthority:/home/dev/.Xauthority:rw \
+      -v /tmp/.X11-unix:/tmp/.X11-unix \
+	  --env="DISPLAY=${ip}:0" \
+	  -p 127.0.0.1:2222:22 \
+      --user=$CONTAINER_USER \
+      ${IMAGE}
+
+#      --volume=`pwd`/docker_dir:/home/$CONTAINER_USER/docker_dir:rw \
+#      --volume=`pwd`/example_projects:/home/$CONTAINER_USER/docker_dir/example_projects:rw \
+```
 
 Please explore other better solutions for directories mapping during remote development.
 
