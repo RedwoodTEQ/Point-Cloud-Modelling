@@ -209,5 +209,5 @@ Please explore other better solutions for directories mapping during remote deve
 
 + Update `setup_container.sh` and `start_container.sh` to launch GUI applications from the container using `xhost`.
 
-+ Add an example pcl that don't need visualization.
++ ~~Add an example pcl that don't need visualization.~~
 
