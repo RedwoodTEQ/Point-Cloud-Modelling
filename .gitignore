@@ -4,8 +4,7 @@ app/model-viewer-web/node_modules
 /docker-images/pcl-dev-docker/example_projects/*/build/
 
 # Cmake generated files
-**/[cmake]*/
 **/.clion.source.upload.marker
 **/node_modules/
-/assets/sobeca_1_group1_densified_point_cloud.las
 *.las
+*.pcd
