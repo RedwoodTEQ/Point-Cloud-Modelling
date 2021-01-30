@@ -1,0 +1,11 @@
+{
+  "name": "static-assets",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "assets-http-server": "ws --port 1234 -d ./"
+  },
+  "devDependencies": {
+    "local-web-server": "^4.2.1"
+  }
+}

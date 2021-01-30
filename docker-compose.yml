@@ -1,0 +1,37 @@
+version: "3.7"
+services:
+  # Assets directory: app/model-viewer-web/assets/sample-model
+  # NPM script: `assets-http-server` in app/model-viewer-web/package.json
+  static-server:
+    image: node:12-alpine
+    ports:
+      - 1234:1234
+    working_dir: /assets/
+    volumes:
+      - ./assets:/assets
+    command: sh -c "npm install && npm run assets-http-server"
+  app-model-viewer:
+    image: node:12-alpine
+    ports:
+      - 8080:8080
+    working_dir: /app/model-viewer-web/
+    volumes:
+      - ./app/model-viewer-web/:/app/model-viewer-web
+      - ./assets:/assets
+    command: sh -c "npm install && npm run start"
+  entwine:
+    image: connormanning/entwine
+    ports:
+      - 1200:1200
+    working_dir: /assets/
+    volumes:
+    - ./assets:/assets
+    command: bash -c "tail -f /dev/null"
+  pdal:
+    image: pdal/pdal
+    ports:
+      - 1201:1201
+    working_dir: /assets/
+    volumes:
+      - ./assets:/assets
+    command: bash -c "tail -f /dev/null"

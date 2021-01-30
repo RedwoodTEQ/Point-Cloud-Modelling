@@ -1,0 +1,190 @@
+{
+  "bounds": [
+    -112.75826263427734,
+    -104.98624420166016,
+    -243.2704620361328,
+    102.4422378540039,
+    90.72147369384766,
+    -121.57968139648438
+  ],
+  "metadata": {
+    "readers.las": {
+      "comp_spatialreference": "LOCAL_CS[\"Arbitrary (m)\",UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]]]",
+      "compressed": false,
+      "count": 1388458,
+      "creation_doy": 313,
+      "creation_year": 2016,
+      "dataformat_id": 3,
+      "dataoffset": 544,
+      "filesource_id": 0,
+      "global_encoding": 0,
+      "global_encoding_base64": "AAA=",
+      "header_size": 227,
+      "major_version": 1,
+      "maxx": 102.4422379,
+      "maxy": 90.72147369,
+      "maxz": -121.5796814,
+      "minor_version": 2,
+      "minx": -112.7582626,
+      "miny": -104.9862442,
+      "minz": -243.270462,
+      "offset_x": 0,
+      "offset_y": 0,
+      "offset_z": 0,
+      "point_length": 34,
+      "project_id": "00000000-0000-0000-0000-000000000000",
+      "scale_x": 0.001,
+      "scale_y": 0.001,
+      "scale_z": 0.001,
+      "software_id": "libLAS 1.8.0",
+      "spatialreference": "LOCAL_CS[\"Arbitrary (m)\",UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]]]",
+      "srs": {
+        "compoundwkt": "LOCAL_CS[\"Arbitrary (m)\",UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]]]",
+        "horizontal": "LOCAL_CS[\"Arbitrary (m)\",UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]]]",
+        "isgeocentric": false,
+        "isgeographic": false,
+        "prettycompoundwkt": "LOCAL_CS[\"Arbitrary (m)\",\n    UNIT[\"metre\",1,\n        AUTHORITY[\"EPSG\",\"9001\"]]]",
+        "prettywkt": "LOCAL_CS[\"Arbitrary (m)\",\n    UNIT[\"metre\",1,\n        AUTHORITY[\"EPSG\",\"9001\"]]]",
+        "proj4": "",
+        "units": {
+          "horizontal": "metre",
+          "vertical": ""
+        },
+        "vertical": "",
+        "wkt": "LOCAL_CS[\"Arbitrary (m)\",UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]]]"
+      },
+      "system_id": "libLAS",
+      "vlr_0": {
+        "data": "AQABAAAABAABBAAAAQABAAIEsYcOAAAABggAAAEAjiMEDAAAAQApIw==",
+        "description": "GeoTIFF GeoKeyDirectoryTag",
+        "record_id": 34735,
+        "user_id": "LASF_Projection"
+      },
+      "vlr_1": {
+        "data": "QXJiaXRyYXJ5IChtKXwA",
+        "description": "GeoTIFF GeoAsciiParamsTag",
+        "record_id": 34737,
+        "user_id": "LASF_Projection"
+      },
+      "vlr_2": {
+        "data": "TE9DQUxfQ1NbIkFyYml0cmFyeSAobSkiLExPQ0FMX0RBVFVNWyJBcmJpdHJhcnkgZGF0dW0iXSxVTklUWyJtZXRlciIsMS4wLEFVVEhPUklUWVsiRVBTRyIsIjkwMDEiXV1dAA==",
+        "description": "OGR variant of OpenGIS WKT SRS",
+        "record_id": 2112,
+        "user_id": "liblas"
+      },
+      "vlr_3": {
+        "data": "AQABAAAABAABBAAAAQABAAIEsYcOAAAABggAAAEAjiMEDAAAAQApIw==",
+        "description": "GeoTIFF GeoKeyDirectoryTag",
+        "record_id": 34735,
+        "user_id": "LASF_Projection"
+      },
+      "vlr_4": {
+        "data": "QXJiaXRyYXJ5IChtKXwA",
+        "description": "GeoTIFF GeoAsciiParamsTag",
+        "record_id": 34737,
+        "user_id": "LASF_Projection"
+      },
+      "vlr_5": {
+        "data": "TE9DQUxfQ1NbIkFyYml0cmFyeSAobSkiLExPQ0FMX0RBVFVNWyJBcmJpdHJhcnkgZGF0dW0iXSxVTklUWyJtZXRlciIsMS4wLEFVVEhPUklUWVsiRVBTRyIsIjkwMDEiXV1dAA==",
+        "description": "OGR variant of OpenGIS WKT SRS",
+        "record_id": 2112,
+        "user_id": "liblas"
+      }
+    }
+  },
+  "path": "/entwine/sobeca_1_group1_densified_point_cloud.las",
+  "pipeline": [
+    {
+      "filename": "/entwine/sobeca_1_group1_densified_point_cloud.las"
+    }
+  ],
+  "points": 1388458,
+  "schema": [
+    {
+      "name": "X",
+      "scale": 0.001,
+      "size": 4,
+      "type": "signed"
+    },
+    {
+      "name": "Y",
+      "scale": 0.001,
+      "size": 4,
+      "type": "signed"
+    },
+    {
+      "name": "Z",
+      "scale": 0.001,
+      "size": 4,
+      "type": "signed"
+    },
+    {
+      "name": "Intensity",
+      "size": 2,
+      "type": "unsigned"
+    },
+    {
+      "name": "ReturnNumber",
+      "size": 1,
+      "type": "unsigned"
+    },
+    {
+      "name": "NumberOfReturns",
+      "size": 1,
+      "type": "unsigned"
+    },
+    {
+      "name": "ScanDirectionFlag",
+      "size": 1,
+      "type": "unsigned"
+    },
+    {
+      "name": "EdgeOfFlightLine",
+      "size": 1,
+      "type": "unsigned"
+    },
+    {
+      "name": "Classification",
+      "size": 1,
+      "type": "unsigned"
+    },
+    {
+      "name": "ScanAngleRank",
+      "size": 4,
+      "type": "float"
+    },
+    {
+      "name": "UserData",
+      "size": 1,
+      "type": "unsigned"
+    },
+    {
+      "name": "PointSourceId",
+      "size": 2,
+      "type": "unsigned"
+    },
+    {
+      "name": "GpsTime",
+      "size": 8,
+      "type": "float"
+    },
+    {
+      "name": "Red",
+      "size": 2,
+      "type": "unsigned"
+    },
+    {
+      "name": "Green",
+      "size": 2,
+      "type": "unsigned"
+    },
+    {
+      "name": "Blue",
+      "size": 2,
+      "type": "unsigned"
+    }
+  ],
+  "srs": {
+    "wkt": "LOCAL_CS[\"Arbitrary (m)\",UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]]]"
+  }
+}

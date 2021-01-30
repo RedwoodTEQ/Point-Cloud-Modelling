@@ -1,0 +1,114 @@
+{
+  "bounds": [
+    -114,
+    -116,
+    -291,
+    104,
+    102,
+    -73
+  ],
+  "boundsConforming": [
+    -113.0,
+    -105.0,
+    -244.0,
+    103.0,
+    91.0,
+    -121.0
+  ],
+  "dataType": "laszip",
+  "hierarchyType": "json",
+  "points": 1388458,
+  "schema": [
+    {
+      "name": "X",
+      "offset": -5,
+      "scale": 0.001,
+      "size": 4,
+      "type": "signed"
+    },
+    {
+      "name": "Y",
+      "offset": -7,
+      "scale": 0.001,
+      "size": 4,
+      "type": "signed"
+    },
+    {
+      "name": "Z",
+      "offset": -182,
+      "scale": 0.001,
+      "size": 4,
+      "type": "signed"
+    },
+    {
+      "name": "Intensity",
+      "size": 2,
+      "type": "unsigned"
+    },
+    {
+      "name": "ReturnNumber",
+      "size": 1,
+      "type": "unsigned"
+    },
+    {
+      "name": "NumberOfReturns",
+      "size": 1,
+      "type": "unsigned"
+    },
+    {
+      "name": "ScanDirectionFlag",
+      "size": 1,
+      "type": "unsigned"
+    },
+    {
+      "name": "EdgeOfFlightLine",
+      "size": 1,
+      "type": "unsigned"
+    },
+    {
+      "name": "Classification",
+      "size": 1,
+      "type": "unsigned"
+    },
+    {
+      "name": "ScanAngleRank",
+      "size": 4,
+      "type": "float"
+    },
+    {
+      "name": "UserData",
+      "size": 1,
+      "type": "unsigned"
+    },
+    {
+      "name": "PointSourceId",
+      "size": 2,
+      "type": "unsigned"
+    },
+    {
+      "name": "GpsTime",
+      "size": 8,
+      "type": "float"
+    },
+    {
+      "name": "Red",
+      "size": 2,
+      "type": "unsigned"
+    },
+    {
+      "name": "Green",
+      "size": 2,
+      "type": "unsigned"
+    },
+    {
+      "name": "Blue",
+      "size": 2,
+      "type": "unsigned"
+    }
+  ],
+  "span": 128,
+  "srs": {
+    "wkt": "LOCAL_CS[\"Arbitrary (m)\",UNIT[\"metre\",1,AUTHORITY[\"EPSG\",\"9001\"]]]"
+  },
+  "version": "1.0.0"
+}
