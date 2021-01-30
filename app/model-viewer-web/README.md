@@ -42,6 +42,11 @@ Click tap 'MODELVIEWER' to viewer page.
 If everything works, it loads entry file `https://127.0.0.1:1234/sobeca_1_group1_densified_point_cloud_entwine/ept.json`,
 then loads all of other `.laz` files, finally render point cloud model.
 
+**If you boot the viewer by docker compose (root/docker-compose.yml), the url should to be different. Please fill in the correct url on basis of
+setting of docker compose.**
+
+**The uri could be located on any other static server, as long as the CORS is setup.**
+
 ### Compiles and minifies for production
 
 ```shell
