@@ -1,19 +1,19 @@
 <template>
   <div class="ModelViewer">
-        <v-row row d-flex nowrap align="center" justify="center" class="px-2">
-          <v-col cols="10" md="8">
-            <v-text-field
-                v-model="url"
-                filled
-                label="URL"
-                clearable
-                required
-            ></v-text-field>
-          </v-col>
-          <v-btn @click="loadModel(url)">
-              load
-          </v-btn>
-        </v-row>
+    <v-row row d-flex nowrap align="center" justify="center" class="px-2">
+      <v-col cols="10" md="8">
+        <v-text-field
+            v-model="url"
+            filled
+            label="URL"
+            clearable
+            required
+        ></v-text-field>
+      </v-col>
+      <v-btn @click="loadModel(url)">
+          load
+      </v-btn>
+    </v-row>
     <v-row align="center">
       <div class="row potree_container" style="width: 100%; height: 100%; left: 0px; top: 0px; ">
         <div ref="potree_render_area" id="potree_render_area"

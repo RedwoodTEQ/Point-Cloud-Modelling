@@ -9,7 +9,9 @@
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
       <v-tabs align-with-title>
+        <v-tab to="/">Home</v-tab>
         <v-tab to="/model-viewer">ModelViewer</v-tab>
+        <v-tab to="/cli-service">CliService</v-tab>
       </v-tabs>
 
       <v-spacer></v-spacer>
@@ -46,7 +48,6 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   /*margin-top: 60px;*/
 }
