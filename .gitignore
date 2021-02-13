@@ -184,3 +184,4 @@ fabric.properties
 
 ########### Projects #############
 /cli-service/dist/
+/docker-images/pcl-dev-docker/example_projects/cloud_viewer/.clion.source.upload.marker
