@@ -1,18 +1,23 @@
-version: "3.7"
+version: "3.9"
 services:
-  # Static resource directory: assets-service/models
-  # NPM script: `assets-http-server` in assets-service/package.json
+  ##########################################
+  # Static resource server.
+  ##########################################
   static-server:
     image: node:12-alpine
+    container_name: static-server
     ports:
       - 1234:1234
     volumes:
       - ./assets-service:/assets-service
     working_dir: /assets-service/
     command: sh -c "npm install && npm run assets-http-server"
-  # The model viewer on basis of potree
+  ##########################################
+  # The model viewer on basis of Potree
+  ##########################################
   app-model-viewer:
     image: node:12-alpine
+    container_name: app-model-viewer
     ports:
       - 8080:8080
     working_dir: /app/model-viewer-web/
@@ -20,17 +25,35 @@ services:
       - ./app/model-viewer-web/:/app/model-viewer-web
       - ./assets-service/models:/assets-service-models
     command: sh -c "npm install && npm run start"
-  entwine:
-    image: connormanning/entwine
+  ##########################################
+  # Provides Entwine & PDAL CLI service
+  ##########################################
+  cli-service:
+    image: redwoodteq/cli-pdal-entwine
+    container_name: cli-service
     ports:
-      - 1200:1200
+      - 3000:3000
     volumes:
-    - ./assets-service/models:/assets-service-models
-    working_dir: /assets-service-models
-  pdal:
-    image: pdal/pdal
+      - ./cli-service:/cli-service
+      - ./assets-service/models:/assets-service-models    # The directory of static assets.
+      - /cli-service/node_modules/                        # Generate the empty `node_modules` to install npm packages in running container.
+                                                          # Some dependency package require compiling during installation.
+                                                          # They don't works on crossing platforms, so that have to install in container.
+    working_dir: /cli-service
+    environment:
+      MODELS_ROOT_PATH: "/assets-service-models"
+    command: sh -c "npm install && npm run start-dev --assets_service_models_root="/assets-service-models""    # Assign argument `assets_service_models_root` in npm script `start-dev`.
+                                                                                                               # The npm script will assign env var `MODEL_ROOT_PATH` to cli service.
+  ##########################################
+  # Development environment of PCL projects
+  ##########################################
+  pcl-dev:
+    image: redwoodteq/pcl-docker-dev-minimum
+    container_name: pcl-dev
     ports:
-      - 1201:1201
+      - 2222:2222                                         # SSH port.
     volumes:
       - ./assets-service/models:/assets-service-models
     working_dir: /assets-service-models
+    user: pcl                                             # SSH user
+    command: sh -c "zsh"
